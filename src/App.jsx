@@ -115,8 +115,12 @@ function App() {
       use_case_context: selectedGateCase ? `${selectedGateCase.company} - ${selectedGateCase.category}` : 'General Inquiry'
     };
     try {
-      const { error } = await supabase.from('leads').insert([leadData]);
-      if (error) throw error;
+      const r = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leadData)
+      });
+      if (!r.ok) throw new Error('Lead submit failed');
       setConsultStatus('success');
       setTimeout(() => { setIsModalOpen(false); setConsultStatus('idle'); }, 2000);
     } catch (err) {
@@ -138,8 +142,12 @@ function App() {
       use_case_context: 'Unlocking Analytics & Filters'
     };
     try {
-      const { error } = await supabase.from('leads').insert([leadData]);
-      if (error) throw error;
+      const r = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leadData)
+      });
+      if (!r.ok) throw new Error('Lead submit failed');
       setGateStatus('success');
       localStorage.setItem('genai_unlocked', 'true');
       setIsUnlocked(true);
