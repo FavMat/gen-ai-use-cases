@@ -1,0 +1,361 @@
+.robot-container {
+  position: fixed;
+  top: 15vh;
+  left: 50%;
+  margin-left: -250px;
+  width: 500px;
+  height: 700px;
+  z-index: -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+:root {
+  --mecha-dark: #020617;
+  --mecha-base: #0f172a;
+  --mecha-armor: linear-gradient(135deg, #475569, #1e293b);
+  --mecha-trim: #94a3b8;
+  --mecha-neon: #0ea5e9;
+}
+
+.mecha-robot {
+  position: relative;
+  width: 300px;
+  height: 500px;
+  transform-origin: center center;
+}
+
+/* 
+  CRITICAL: 
+  All animated parts share this scroll-driven property.
+  The animation is 1s long, paused, and the delay is negative based on the scroll variable.
+  This allows the scrollbar to "scrub" the animation timeline.
+*/
+.mecha-robot,
+.mecha-head,
+.mecha-torso,
+.mecha-arm.left,
+.mecha-arm.right,
+.mecha-leg.left,
+.mecha-leg.right {
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+  animation-delay: calc(var(--scroll) * -1s);
+}
+
+.mecha-robot { animation-name: mechaDance; }
+.mecha-head { animation-name: mechaHead; }
+.mecha-arm.left { animation-name: mechaArmLeft; }
+.mecha-arm.right { animation-name: mechaArmRight; }
+.mecha-leg.left { animation-name: mechaLegLeft; }
+.mecha-leg.right { animation-name: mechaLegRight; }
+
+.mecha-aura {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, transparent 60%);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* Head */
+.mecha-head {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  margin-left: -35px;
+  width: 70px;
+  height: 80px;
+  background: var(--mecha-armor);
+  clip-path: polygon(20% 0%, 80% 0%, 100% 40%, 50% 100%, 0% 40%);
+  z-index: 10;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+}
+
+.visor-glow {
+  position: absolute;
+  top: 35px;
+  left: 10px;
+  width: 50px;
+  height: 6px;
+  background: var(--mecha-neon);
+  box-shadow: 0 0 20px var(--mecha-neon), 0 0 40px var(--mecha-neon);
+  clip-path: polygon(0% 0%, 100% 20%, 100% 80%, 0% 100%);
+}
+
+/* Torso */
+.mecha-torso {
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  margin-left: -70px;
+  width: 140px;
+  height: 180px;
+  z-index: 8;
+}
+
+.chest-plate {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 140px;
+  height: 100px;
+  background: var(--mecha-armor);
+  clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 50% 110%, 15% 100%);
+  border-top: 4px solid var(--mecha-trim);
+}
+
+.core-reactor {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  margin-left: -20px;
+  width: 40px;
+  height: 40px;
+  background: var(--mecha-neon);
+  border-radius: 50%;
+  box-shadow: 0 0 30px var(--mecha-neon), inset 0 0 10px white;
+}
+
+.ab-plate {
+  position: absolute;
+  top: 95px;
+  left: 50%;
+  margin-left: -40px;
+  width: 80px;
+  height: 80px;
+  background: var(--mecha-base);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+  box-shadow: inset 0 10px 20px rgba(0,0,0,0.9);
+}
+
+/* Arms */
+.mecha-arm {
+  position: absolute;
+  top: 95px;
+  width: 60px;
+  height: 250px;
+  z-index: 9;
+}
+
+.mecha-arm.left {
+  left: 10px;
+  transform-origin: 50% 20px;
+}
+
+.mecha-arm.right {
+  right: 10px;
+  transform-origin: 50% 20px;
+}
+
+.shoulder-armor {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 80px;
+  height: 70px;
+  background: var(--mecha-armor);
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 50% 80%, 0% 100%);
+  border-top: 3px solid var(--mecha-neon);
+}
+
+.upper-arm {
+  position: absolute;
+  top: 40px;
+  left: 15px;
+  width: 30px;
+  height: 80px;
+  background: var(--mecha-base);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+}
+
+.elbow-joint {
+  position: absolute;
+  top: 110px;
+  left: 10px;
+  width: 40px;
+  height: 40px;
+  background: var(--mecha-trim);
+  border-radius: 50%;
+  box-shadow: inset 0 5px 10px rgba(0,0,0,0.8);
+}
+
+.lower-arm {
+  position: absolute;
+  top: 130px;
+  left: 10px;
+  width: 40px;
+  height: 100px;
+  background: var(--mecha-armor);
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+}
+
+.blade {
+  position: absolute;
+  top: 20px;
+  left: -15px;
+  width: 10px;
+  height: 120px;
+  background: var(--mecha-neon);
+  box-shadow: 0 0 15px var(--mecha-neon);
+  clip-path: polygon(100% 0%, 100% 100%, 0% 80%);
+}
+.mecha-arm.right .blade {
+  left: auto;
+  right: -15px;
+  clip-path: polygon(0% 0%, 100% 80%, 0% 100%);
+}
+
+/* Legs */
+.mecha-leg {
+  position: absolute;
+  top: 250px;
+  width: 70px;
+  height: 250px;
+  z-index: 7;
+}
+
+.mecha-leg.left {
+  left: 80px;
+  transform-origin: 50% 20px;
+}
+
+.mecha-leg.right {
+  right: 80px;
+  transform-origin: 50% 20px;
+}
+
+.hip-joint {
+  position: absolute;
+  top: 0;
+  left: 15px;
+  width: 40px;
+  height: 40px;
+  background: var(--mecha-trim);
+  border-radius: 50%;
+}
+
+.thigh-armor {
+  position: absolute;
+  top: 20px;
+  left: 5px;
+  width: 60px;
+  height: 100px;
+  background: var(--mecha-armor);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 80%, 50% 100%, 0% 80%);
+}
+
+.knee-joint {
+  position: absolute;
+  top: 105px;
+  left: 15px;
+  width: 40px;
+  height: 40px;
+  background: var(--mecha-dark);
+  border-radius: 50%;
+  border: 4px solid var(--mecha-trim);
+}
+
+.shin-armor {
+  position: absolute;
+  top: 125px;
+  left: 10px;
+  width: 50px;
+  height: 100px;
+  background: var(--mecha-armor);
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+}
+
+.mecha-foot {
+  position: absolute;
+  top: 215px;
+  left: 0;
+  width: 70px;
+  height: 35px;
+  background: var(--mecha-base);
+  clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
+  border-bottom: 4px solid var(--mecha-neon);
+  box-shadow: 0 10px 20px rgba(14, 165, 233, 0.4);
+}
+
+/* =========================================
+   SCROLL-DRIVEN BREAKDANCE KEYFRAMES
+   ========================================= */
+/* The entire timeline is exactly 100%, driven by user scroll */
+
+@keyframes mechaDance {
+  0% { transform: translateY(0) rotate(0deg); }
+  /* Drop to footwork */
+  15% { transform: translateY(100px) rotate(-20deg); }
+  /* Windmill sweep */
+  30% { transform: translateY(150px) rotate(-90deg); }
+  /* Air flare */
+  45% { transform: translateY(0px) rotate(-180deg); }
+  /* Headspin drop */
+  60% { transform: translateY(180px) rotate(-180deg); }
+  /* Headspin rotation (multiple spins) */
+  65% { transform: translateY(180px) rotate(-540deg); }
+  70% { transform: translateY(180px) rotate(-900deg); }
+  75% { transform: translateY(180px) rotate(-1260deg); }
+  /* Freeze pose on one hand */
+  85% { transform: translateY(50px) translateX(-50px) rotate(-1400deg); }
+  /* Back up */
+  100% { transform: translateY(0) rotate(-1440deg); } /* -1440 is exact multiple of 360 */
+}
+
+@keyframes mechaHead {
+  0% { transform: rotate(0deg); }
+  15% { transform: rotate(20deg) translateY(10px); }
+  30% { transform: rotate(-40deg); }
+  60%, 75% { transform: rotate(0deg) translateY(-20px); } /* Compressed during headspin */
+  85% { transform: rotate(45deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes mechaArmLeft {
+  0% { transform: rotate(10deg); }
+  15% { transform: rotate(120deg); } /* Floor support */
+  30% { transform: rotate(180deg); }
+  45% { transform: rotate(90deg); }
+  60%, 75% { transform: rotate(180deg); } /* Holding floor for headspin */
+  85% { transform: rotate(160deg); } /* One hand freeze support */
+  100% { transform: rotate(10deg); }
+}
+
+@keyframes mechaArmRight {
+  0% { transform: rotate(-10deg); }
+  15% { transform: rotate(-45deg); }
+  30% { transform: rotate(-120deg); } /* Sweeping */
+  45% { transform: rotate(-90deg); }
+  60%, 75% { transform: rotate(-180deg); } /* Holding floor for headspin */
+  85% { transform: rotate(45deg); } /* Arm tucked in freeze */
+  100% { transform: rotate(-10deg); }
+}
+
+@keyframes mechaLegLeft {
+  0% { transform: rotate(5deg); }
+  15% { transform: rotate(-90deg); } /* Crouching */
+  30% { transform: rotate(45deg); } /* Helicopter kick */
+  45% { transform: rotate(-45deg); }
+  60%, 75% { transform: rotate(60deg); } /* Split legs during headspin */
+  85% { transform: rotate(-30deg); } /* Tucked in freeze */
+  100% { transform: rotate(5deg); }
+}
+
+@keyframes mechaLegRight {
+  0% { transform: rotate(-5deg); }
+  15% { transform: rotate(90deg); } /* Crouching */
+  30% { transform: rotate(-120deg); } /* Helicopter sweep */
+  45% { transform: rotate(45deg); }
+  60%, 75% { transform: rotate(-60deg); } /* Split legs during headspin */
+  85% { transform: rotate(-90deg); } /* Extended in freeze */
+  100% { transform: rotate(-5deg); }
+}
